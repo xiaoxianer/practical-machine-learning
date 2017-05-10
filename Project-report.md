@@ -104,7 +104,7 @@ The Dataset now consists of 54 variables with the observations divided as follow
 
 
 ``` r
-modelRF <- train(classe ~ ., data = training, method = "rf", trControl = trainControl(method = "cv", 5), ntree = 250)
+RFModel <- train(classe ~ ., data = training, method = "rf", trControl = trainControl(method = "cv", 5), ntree = 250)
 modelRF
 ```
 
@@ -132,7 +132,7 @@ modelRF
 Next, we estimate the performance of the model on the validation data set.
 
 ``` r
-predictRF <- predict(modelRF, validation)
+predictRF <- predict(RFModel, validation)
 confusionMatrix(validation$classe, predictRF)
 ```
 
@@ -168,10 +168,4 @@ confusionMatrix(validation$classe, predictRF)
     ## Detection Prevalence   0.2845   0.1935   0.1743   0.1638   0.1839
     ## Balanced Accuracy      1.0000   0.9996   0.9986   0.9977   0.9999
 
-``` r
-accuracy <- postResample(predictRF, validation$classe)
-ose <- 1 - as.numeric(confusionMatrix(validation$classe, predictRF)$overall[1])
-rm(predictRF)
-```
-
-As shown above, the Estimated Accuracy of the Random Forest Model is 99.8810535% and the Estimated Out-of-Sample Error is 0.1189465%.  We got a very nice high level of accuracy.
+As shown above, the Estimated Accuracy of the Random Forest Model is 99.8810535% and the Estimated Out-of-Sample Error is 0.1189465%.  Hence, we got a very nice high level of accuracy. We can see that our calculations were very close with the result of the matrix. 
